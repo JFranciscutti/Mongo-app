@@ -36,9 +36,8 @@ const getPelis = (input) => {
 }
 
 const getPeliCompleja = () => {
-  const filter = {
-    $or: [{ title: { $regex: input } }, { fullplot: { $regex: input } }, { cast: { $in: [input] } }]
-  };
+  //TOP 15 de las mejores peliculas de crimen y accion segun IMDB entre el 1975 y el 2000
+  const filter = {$and: [{year: {$lt: 2001, $gt: 1974}}, {"imdb.rating": {$ne: "" }}, {$or: [{genres: "Crime"}, {genres: "Action"}]} ]};
   const projection = {
     'title': 1,
     '_id': 0,
@@ -49,7 +48,7 @@ const getPeliCompleja = () => {
     'poster': 1,
   };
   const coll = db.collection('movies');
-  const cursor = coll.find(filter, { projection });
+  const cursor = coll.find(filter, { projection }).limit(15);
   const result = cursor.toArray();
   return result;
 }

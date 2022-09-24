@@ -97,7 +97,7 @@ generateButton.addEventListener('click', function (e) {
 
 const postearPelicula = (item) => {
   console.log(item);
-  const options = { method: 'POST', body: JSON.stringify(item), headers: {'Content-Type': 'application/json'} }
+  const options = { method: 'POST', body: JSON.stringify(item), headers: { 'Content-Type': 'application/json' } }
   fetch('/create-pelicula', options).then((response) => {
     if (response.ok) {
       return response.json();
@@ -120,68 +120,38 @@ const clearRandomMovieGenerated = () => {
 const createRandomMovieContainer = (movie, isNew) => {
 
   let container = document.createElement("div");
-  container.style.display = "flex";
-  container.style.flexDirection = "row";
-  container.style.alignItems = "space-around";
-  container.style.justifyContent = "center";
-  container.style.height = "150px";
-  container.style.alignSelf = "center";
+  container.style.cssText = "display: flex; flex-direction: row; align-items: space-around; justify-content: center; align-self:center; height: 150px; width: 100%; margin: 2em 0; border: 2px solid; border-radius: 1em;"
   container.style.backgroundColor = isNew ? "#ACDDDE" : "#F7D8BA";
-  container.style.width = "100%";
-  container.style.marginBottom = "2em";
-  container.style.marginTop = "2em";
-  container.style.border = "2px solid";
   container.style.borderColor = isNew ? "green" : "black";
-  container.style.borderRadius = "1em";
 
   let firstContainer = document.createElement("div");
-  firstContainer.style.display = "flex";
-  firstContainer.style.flexDirection = "column";
-  firstContainer.style.marginRight = "40px";
-  firstContainer.style.width = "25%";
-  firstContainer.style.justifyContent = "center";
+  firstContainer.style.cssText = "display:flex; flex-direction: column; margin-right: 40px; width: 25%; justify-content: center;"
 
   let generatedMovieFlag = document.createElement("div");
-  generatedMovieFlag.style.display = "flex";
-  generatedMovieFlag.style.flexDirection = "column";
-  generatedMovieFlag.style.fontWeight = "bold";
-  generatedMovieFlag.style.color = "green";
-  generatedMovieFlag.style.marginBottom = "1em";
+  generatedMovieFlag.style.cssText = "display:flex; flex-direction: column; font-weight: bold; color: green; margin-bottom: 1em;"
   generatedMovieFlag.appendChild(document.createTextNode(`¡NUEVA PELICULA GENERADA Y GUARDADA!`));
   isNew && firstContainer.appendChild(generatedMovieFlag);
 
 
   let titleContainer = document.createElement("div");
-  titleContainer.style.display = "flex";
-  titleContainer.style.flexDirection = "column";
+  titleContainer.style.cssText = "display:flex; flex-direction: column;";
   titleContainer.appendChild(document.createTextNode(`Titulo: ${movie.title}`));
   firstContainer.appendChild(titleContainer);
 
   let yearContainer = document.createElement("div");
-  yearContainer.style.display = "flex";
-  yearContainer.style.flexDirection = "column";
+  yearContainer.style.cssText = "display:flex; flex-direction: column;";
   yearContainer.appendChild(document.createTextNode(`Año de estreno: ${movie.year}`));
   firstContainer.appendChild(yearContainer);
 
   container.appendChild(firstContainer);
 
   let plotContainer = document.createElement("div");
-  plotContainer.style.display = "flex";
-  plotContainer.style.flexDirection = "column";
-  plotContainer.style.marginRight = "40px";
-  plotContainer.style.height = "150px";
-  plotContainer.style.width = "40%";
-  plotContainer.style.justifyContent = "center";
-  plotContainer.style.overflowY = "hidden";
+  plotContainer.style.cssText = "display:flex; flex-direction: column; margin-right: 40px; height: 150px; width: 40%; justify-content: center; overflow-y: hidden;";
   plotContainer.appendChild(document.createTextNode(`Plot: ${movie.fullplot || '-'}`));
   container.appendChild(plotContainer);
 
   let castContainer = document.createElement("div");
-  castContainer.style.display = "flex";
-  castContainer.style.flexDirection = "column";
-  castContainer.style.maxHeight = "150px";
-  castContainer.style.width = "25%";
-  castContainer.style.justifyContent = "center";
+  castContainer.style.cssText = "display:flex; flex-direction: column; max-height: 150px; width: 25%; justify-content: center";
   castContainer.appendChild(document.createTextNode(`Cast: ${movie.cast}`));
   container.appendChild(castContainer);
 
