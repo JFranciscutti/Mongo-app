@@ -38,13 +38,14 @@ advancedButton.addEventListener('click', function (e) {
       throw new Error('Request failed.');
     })
     .then((data) => {
-      let lista = "";
+      let lista = [];
       data.forEach((peli) => {
-        lista = lista + "<p>" + peli.title + ", estrenada el año " + peli.year + "</p>";
+        lista.push(createSimpleMovieContainer(peli))
       })
       const divRes = document.getElementById("resultados");
-      divRes.innerHTML = lista;
-      return;
+      divRes.innerHTML = "";
+      lista.forEach((component) => divRes.appendChild(component));
+      clearRandomMovieGenerated();
     })
     .catch(function (error) {
       console.log(error);

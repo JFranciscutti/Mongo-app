@@ -8,14 +8,6 @@ router.get('/public', (req, res) => {
   res.sendFile(__dirname + "/public");
 });
 
-const itemSchema = Joi.object({
-  title: Joi.string().required(),
-  fullplot: Joi.string(),
-  year: Joi.string().required(),
-  cast: Joi.string(),
-  poster: Joi.string(),
-})
-
 // Obtener las peliculas solicitadas
 router.get('/peliculas', (req, res) => {
   getPelis(req.query.input)
@@ -42,7 +34,11 @@ router.get('/peliculas-advanced', (req, res) => {
     .then((items) => {
       items = items.map((item) => ({
         title: item.title,
-        year: item.year
+        year: item.year,
+        imdb: item.imdb?.rating || "-",
+        tomatoes: item.tomatoes?.critic?.rating || "-",
+        metacritic: item.metacritic || "-",
+        poster: item.poster,
       }))
       res.json(items)
     })

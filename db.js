@@ -9,7 +9,7 @@ const init = () =>
   MongoClient.connect(connectionUrl, { useNewUrlParser: true }).then((client) => {
     db = client.db(dbName)
     let movies = db.collection('movies');
-    movies.createIndex({title: "text", fullplot: "text", cast: "text"});
+    movies.createIndex({ title: "text", fullplot: "text", cast: "text" });
   })
 
 const insertItem = (item) => {
@@ -19,7 +19,7 @@ const insertItem = (item) => {
 
 
 const getPelis = (input) => {
-  const filter = {$text: {$search: input}}
+  const filter = { $text: { $search: input } }
   const projection = {
     'title': 1,
     '_id': 0,
@@ -37,7 +37,7 @@ const getPelis = (input) => {
 
 const getPeliCompleja = () => {
   //TOP 15 de las mejores peliculas de crimen y accion segun IMDB entre el 1975 y el 2000
-  const filter = {$and: [{year: {$lt: 2001, $gt: 1974}}, {"imdb.rating": {$ne: "" }}, {$or: [{genres: "Crime"}, {genres: "Action"}]} ]};
+  const filter = { $and: [{ year: { $lt: 2001, $gt: 1974 } }, { "imdb.rating": { $ne: "" } }, { $or: [{ genres: "Crime" }, { genres: "Action" }] }] };
   const projection = {
     'title': 1,
     '_id': 0,
@@ -47,8 +47,11 @@ const getPeliCompleja = () => {
     'metacritic': 1,
     'poster': 1,
   };
+  const sort = {
+    "imdb.rating": -1
+  }
   const coll = db.collection('movies');
-  const cursor = coll.find(filter, { projection }).limit(15);
+  const cursor = coll.find(filter, { projection }).sort(sort).limit(15);
   const result = cursor.toArray();
   return result;
 }
