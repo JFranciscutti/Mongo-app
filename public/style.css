@@ -1,11 +1,11 @@
 input {
     border: none;
-    padding: 10px;
-    margin: 10px;
-    height: 20px;
-    width: 500px;
+    padding: 1em 0;
+    margin: 2em 0;
+    height: 2em;
+    width: 50%;
     border: 1px solid #eaeaea;
-    outline: none;
+    border-radius: 0.3em;
 }
 
 input:hover {
@@ -39,6 +39,8 @@ input[type="submit"]:hover {
 
 .main {
     text-align: center;
+    align-items: center;
+    justify-content: center;
 }
 
 h2 {
@@ -49,6 +51,88 @@ body {
     background-color: #cccccc;
 }
 
-.movieContainer {
-    background-color: "red";
+.randomMovieContainer {
+    align-items: space-around;
+    justify-content: center;
+    align-self: center;
+    height: 150px;
+    width: 100%;
+    margin: 2em 0;
+    border: 2px solid;
+    border-radius: 1em;
+}
+
+.randomMovieFirstContainer {
+    margin-right: 40px;
+    width: 25%;
+    justify-content: center;
+}
+
+.generatedMovieFlag {
+    font-weight: bold;
+    color: green;
+    margin-bottom: 1em;
+}
+
+.plotContainer {
+    margin-right: 40px;
+    height: 150px;
+    width: 40%;
+    justify-content: center;
+    overflow-y: hidden;
+}
+
+.castContainer {
+    max-height: 150px;
+    width: 25%;
+    justify-content: center
+}
+
+.imgContainer {
+    justify-content: center;
+    width: 10%
+}
+
+.simpleContainer {
+    align-items: space-around;
+    justify-content: center;
+    height: 150px;
+    align-self: center;
+    background-color: #F7D8BA;
+    width: 100%;
+    margin-bottom: 2em;
+    border: 2px solid black;
+    border-radius: 1em;
+}
+
+.simpleFirstContainer {
+    margin-right: 40px;
+    width: 33%;
+    justify-content: center;
+    height: 150px;
+}
+
+.ratingText {
+    justify-content: center;
+    margin-bottom: 1em;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+}
+
+.subtitle {
+    background-color: #4d90fe;
+    border: 1px solid black;
+    width: 50%;
+    align-self: center;
+    border-radius: 0.3em;
+    margin: 1em 0;
+    font-weight: bold;
 }

@@ -22,6 +22,7 @@ button.addEventListener('click', function (e) {
       divRes.innerHTML = "";
       lista.forEach((component) => divRes.appendChild(component));
       clearRandomMovieGenerated();
+      setSubtitleText("Resultados de la busqueda de: " + inputSearch.value);
     })
     .catch(function (error) {
       console.log(error);
@@ -46,6 +47,7 @@ advancedButton.addEventListener('click', function (e) {
       divRes.innerHTML = "";
       lista.forEach((component) => divRes.appendChild(component));
       clearRandomMovieGenerated();
+      setSubtitleText("TOP 15 de las mejores peliculas de crimen y accion segun IMDB entre el 1975 y el 2000")
     })
     .catch(function (error) {
       console.log(error);
@@ -55,6 +57,7 @@ advancedButton.addEventListener('click', function (e) {
 generateButton.addEventListener('click', function (e) {
   let pelis = [];
   let generatedMovie;
+  setSubtitleText("");
   // realizar la busqueda y generar la lista 
   fetch('/pelicula-random', { method: 'GET' })
     .then(function (response) {
@@ -118,49 +121,52 @@ const clearRandomMovieGenerated = () => {
   divGeneratedMovie.innerHTML = "";
 }
 
+const setSubtitleText = (input) => {
+  const subtitleDiv = document.getElementById("subtitle");
+  subtitleDiv.innerHTML = "";
+  subtitleDiv.appendChild(document.createTextNode(input));
+}
+
 const createRandomMovieContainer = (movie, isNew) => {
 
   let container = document.createElement("div");
-  container.style.cssText = "display: flex; flex-direction: row; align-items: space-around; justify-content: center; align-self:center; height: 150px; width: 100%; margin: 2em 0; border: 2px solid; border-radius: 1em;"
+  container.className = "randomMovieContainer row";
   container.style.backgroundColor = isNew ? "#ACDDDE" : "#F7D8BA";
   container.style.borderColor = isNew ? "green" : "black";
 
   let firstContainer = document.createElement("div");
-  firstContainer.style.cssText = "display:flex; flex-direction: column; margin-right: 40px; width: 25%; justify-content: center;"
+  firstContainer.className = "randomMovieFirstContainer column";
 
   let generatedMovieFlag = document.createElement("div");
-  generatedMovieFlag.style.cssText = "display:flex; flex-direction: column; font-weight: bold; color: green; margin-bottom: 1em;"
+  generatedMovieFlag.className = "generatedMovieFlag column";
   generatedMovieFlag.appendChild(document.createTextNode(`¡NUEVA PELICULA GENERADA Y GUARDADA!`));
   isNew && firstContainer.appendChild(generatedMovieFlag);
 
 
   let titleContainer = document.createElement("div");
-  titleContainer.style.cssText = "display:flex; flex-direction: column;";
+  titleContainer.className = "column";
   titleContainer.appendChild(document.createTextNode(`Titulo: ${movie.title}`));
   firstContainer.appendChild(titleContainer);
 
   let yearContainer = document.createElement("div");
-  yearContainer.style.cssText = "display:flex; flex-direction: column;";
+  yearContainer.className = "column";
   yearContainer.appendChild(document.createTextNode(`Año de estreno: ${movie.year}`));
   firstContainer.appendChild(yearContainer);
 
   container.appendChild(firstContainer);
 
   let plotContainer = document.createElement("div");
-  plotContainer.style.cssText = "display:flex; flex-direction: column; margin-right: 40px; height: 150px; width: 40%; justify-content: center; overflow-y: hidden;";
+  plotContainer.className = "plotContainer column";
   plotContainer.appendChild(document.createTextNode(`Plot: ${movie.fullplot || '-'}`));
   container.appendChild(plotContainer);
 
   let castContainer = document.createElement("div");
-  castContainer.style.cssText = "display:flex; flex-direction: column; max-height: 150px; width: 25%; justify-content: center";
+  castContainer.className = "castContainer column";
   castContainer.appendChild(document.createTextNode(`Cast: ${movie.cast}`));
   container.appendChild(castContainer);
 
   let imgContainer = document.createElement("div");
-  imgContainer.style.display = "flex";
-  imgContainer.style.flexDirection = "row";
-  imgContainer.style.justifyContent = "center";
-  imgContainer.style.width = "10%";
+  imgContainer.className = "imgContainer row";
 
   let imgElement = document.createElement("img");
   imgElement.src = movie.poster;
@@ -177,79 +183,45 @@ const createRandomMovieContainer = (movie, isNew) => {
 const createSimpleMovieContainer = (movie) => {
 
   let container = document.createElement("div");
-  container.style.display = "flex";
-  container.style.flexDirection = "row";
-  container.style.alignItems = "space-around";
-  container.style.justifyContent = "center";
-  container.style.height = "150px";
-  container.style.alignSelf = "center";
-  container.style.backgroundColor = "#F7D8BA";
-  container.style.width = "100%";
-  container.style.marginBottom = "2em";
-  container.style.marginTop = "2em";
-  container.style.border = "2px solid";
-  container.style.borderColor = "black";
-  container.style.borderRadius = "1em";
+  container.className = "simpleContainer row"
 
   let firstContainer = document.createElement("div");
-  firstContainer.style.display = "flex";
-  firstContainer.style.flexDirection = "column";
-  firstContainer.style.marginRight = "40px";
-  firstContainer.style.width = "33%";
-  firstContainer.style.justifyContent = "center";
+  firstContainer.className = "simpleFirstContainer column";
 
   let titleContainer = document.createElement("div");
-  titleContainer.style.display = "flex";
-  titleContainer.style.flexDirection = "column";
+  titleContainer.className = "column";
   titleContainer.appendChild(document.createTextNode(`Titulo: ${movie.title}`));
   firstContainer.appendChild(titleContainer);
 
   let yearContainer = document.createElement("div");
-  yearContainer.style.display = "flex";
-  yearContainer.style.flexDirection = "column";
+  yearContainer.className = "column";
   yearContainer.appendChild(document.createTextNode(`Año de estreno: ${movie.year}`));
   firstContainer.appendChild(yearContainer);
 
   container.appendChild(firstContainer);
 
   let ratingsContainer = document.createElement("div");
-  ratingsContainer.style.display = "flex";
-  ratingsContainer.style.flexDirection = "column";
-  ratingsContainer.style.marginRight = "40px";
-  ratingsContainer.style.height = "150px";
-  ratingsContainer.style.width = "33%";
-  ratingsContainer.style.justifyContent = "center";
+  ratingsContainer.className = "simpleFirstContainer column";
 
   let imdbContainer = document.createElement("div");
-  imdbContainer.style.display = "flex";
-  imdbContainer.style.flexDirection = "column";
-  imdbContainer.style.justifyContent = "center";
-  imdbContainer.style.marginBottom = "1em";
+  imdbContainer.className = "ratingText column";
   imdbContainer.appendChild(document.createTextNode(`IMDB Rating: ${movie.imdb || '-'}`));
   ratingsContainer.appendChild(imdbContainer);
 
   let tomatoesContainer = document.createElement("div");
-  tomatoesContainer.style.display = "flex";
-  tomatoesContainer.style.flexDirection = "column";
-  tomatoesContainer.style.justifyContent = "center";
-  tomatoesContainer.style.marginBottom = "1em";
+  tomatoesContainer.className = "ratingText column";
   tomatoesContainer.appendChild(document.createTextNode(`Tomatoes Rating: ${movie.tomatoes || "-"}`));
   ratingsContainer.appendChild(tomatoesContainer);
 
   let metacriticContainer = document.createElement("div");
-  metacriticContainer.style.display = "flex";
-  metacriticContainer.style.flexDirection = "column";
-  metacriticContainer.style.justifyContent = "center";
+  metacriticContainer.className = "ratingText column";
   metacriticContainer.appendChild(document.createTextNode(`Metacritic Rating: ${movie.metacritic || "-"}`));
   ratingsContainer.appendChild(metacriticContainer);
 
   container.appendChild(ratingsContainer);
 
   let imgContainer = document.createElement("div");
-  imgContainer.style.display = "flex";
-  imgContainer.style.flexDirection = "row";
-  imgContainer.style.justifyContent = "center";
-  imgContainer.style.width = "33%";
+  imgContainer.className = "imgContainer";
 
   let imgElement = document.createElement("img");
   imgElement.src = movie.poster;
